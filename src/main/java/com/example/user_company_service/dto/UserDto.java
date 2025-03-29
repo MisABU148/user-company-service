@@ -7,5 +7,6 @@ public class UserDto {
     String firstName;
     String lastName;
     String phoneNumber;
-    Long company;
+//    Long company;
+    String companyName;
 }

@@ -24,6 +24,8 @@ public class UserService {
         userRepository.save(user);
     }
     public List<UserDto> getUsers() {
+        String testName=userRepository.findUserName();
+        System.out.println(testName);
         return userRepository.findAll().stream()
                 .map(user -> userMapping.mapToUserDto(user))
                 .toList();

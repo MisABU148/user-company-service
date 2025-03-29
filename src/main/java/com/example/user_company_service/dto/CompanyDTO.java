@@ -8,5 +8,5 @@ import java.util.List;
 public class CompanyDTO {
     private String company_name;
     private String budget;
-    private List<Long> employee;
+    private List<String> employee;
 }

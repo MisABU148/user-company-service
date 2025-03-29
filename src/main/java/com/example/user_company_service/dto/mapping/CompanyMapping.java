@@ -12,7 +12,7 @@ public class CompanyMapping {
         dto.setCompany_name(entity.getCompany_name());
         dto.setBudget(entity.getBudget());
         dto.setEmployee(entity.getEmployee().stream()
-                .map(User::getId).toList());
+                .map(user -> user.getFirstName()+" "+user.getLastName()).toList());
         return dto;
     }
     public Company mapToProductEntity(CompanyDTO dto){

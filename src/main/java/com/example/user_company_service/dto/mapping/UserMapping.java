@@ -17,7 +17,8 @@ public class UserMapping {
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setPhoneNumber(entity.getPhoneNumber());
-        dto.setCompany(entity.getCompany().getId());
+//        dto.setCompany(entity.getCompany().getId());
+        dto.setCompanyName(entity.getCompany().getCompany_name());
         return dto;
     }
     public User mapToUserEntity(UserDto dto) {
@@ -25,10 +26,10 @@ public class UserMapping {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
-        repository.findAll().stream()
-                .filter(company -> company.getId().equals(dto.getCompany()))
-                .findFirst()
-                .ifPresent(entity::setCompany);
+//        repository.findAll().stream()
+//                .filter(company -> company.getId().equals(dto.getCompany()))
+//                .findFirst()
+//                .ifPresent(entity::setCompany);
         return entity;
     }
 }
