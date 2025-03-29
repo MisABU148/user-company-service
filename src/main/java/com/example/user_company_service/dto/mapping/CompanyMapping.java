@@ -2,6 +2,7 @@ package com.example.user_company_service.dto.mapping;
 
 import com.example.user_company_service.dto.CompanyDTO;
 import com.example.user_company_service.models.Company;
+import com.example.user_company_service.models.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +11,8 @@ public class CompanyMapping {
         CompanyDTO dto = new CompanyDTO();
         dto.setCompany_name(entity.getCompany_name());
         dto.setBudget(entity.getBudget());
+        dto.setEmployee(entity.getEmployee().stream()
+                .map(User::getId).toList());
         return dto;
     }
     public Company mapToProductEntity(CompanyDTO dto){
