@@ -1,6 +1,6 @@
 package com.example.user_company_service.services;
 
-import com.example.user_company_service.dto.CompanyDTO;
+import com.example.user_company_service.dto.CompanyDto;
 import com.example.user_company_service.dto.mapping.CompanyMapping;
 import com.example.user_company_service.models.Company;
 import com.example.user_company_service.repositories.CompanyRepository;
@@ -19,14 +19,14 @@ public class CompanyService {
     @Autowired
     private CompanyMapping companyMapping;
 
-    public void createCompany(CompanyDTO companyDTO) {
-        Company newCompany = companyMapping.mapToProductEntity(companyDTO);
+    public void createCompany(CompanyDto companyDTO) {
+        Company newCompany = companyMapping.mapToCompanyEntity(companyDTO);
         companyRepository.save(newCompany);
     }
 
-    public List<CompanyDTO> readCompany() {
+    public List<CompanyDto> readCompany() {
         return companyRepository.findAll().stream()
-                .map(company -> companyMapping.mapToProductDto(company))
+                .map(company -> companyMapping.mapToCompanyDto(company))
                 .toList();
     }
 
@@ -34,18 +34,7 @@ public class CompanyService {
         companyRepository.deleteById(id);
     }
 
-    public void updateCompany(CompanyDTO companyDTO) {
-        companyRepository.findAll().stream()
-                .filter(company -> company.getCompany_name().equals(companyDTO.getCompany_name()))
-                .findFirst()
-                .ifPresentOrElse(
-                        company -> {
-                            company.setBudget(companyDTO.getBudget());
-                            companyRepository.save(company);
-                        },
-                        () -> {
-                            log.info("error");
-                        }
-                );
+    public void updateCompany(CompanyDto companyDto) {
+        companyRepository.updateById(companyDto);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.user_company_service.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -8,7 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 @Data
 public class User {
     @Id

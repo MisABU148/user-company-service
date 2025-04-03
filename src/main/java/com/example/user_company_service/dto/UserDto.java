@@ -4,9 +4,10 @@ import lombok.Data;
 
 @Data
 public class UserDto {
+    Long id;
     String firstName;
     String lastName;
     String phoneNumber;
-//    Long company;
+    Long companyId;
     String companyName;
 }

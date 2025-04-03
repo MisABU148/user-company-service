@@ -1,12 +1,14 @@
 package com.example.user_company_service.controllers;
 
-import com.example.user_company_service.dto.CompanyDTO;
+import com.example.user_company_service.dto.CompanyDto;
 import com.example.user_company_service.services.CompanyService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+@Slf4j
 @RestController
 @RequestMapping("/company")
 public class CompanyController {
@@ -14,24 +16,25 @@ public class CompanyController {
     private CompanyService companyService;
 
     @PostMapping("/create")
-    private String createCompany(@RequestBody CompanyDTO companyDTO
-    ) {
+    private CompanyDto createCompany(@RequestBody CompanyDto companyDTO) {
         companyService.createCompany(companyDTO);
-        return "created";
+        log.info("company added");
+        return companyDTO;
     }
     @GetMapping("/read")
-    private List<CompanyDTO> readCompany() {
+    private List<CompanyDto> readCompany() {
         return companyService.readCompany();
     }
 
     @DeleteMapping("/delete/{id}")
-    private String deleteCompany(@PathVariable("id") Long id) {
+    private void deleteCompany(@PathVariable("id") Long id) {
         companyService.deleteCompany(id);
-        return "deleted";
+        log.info("company deleted");
     }
     @PutMapping("/update")
-    public String updateCompany(@RequestBody CompanyDTO companyDTO) {
-        companyService.updateCompany(companyDTO);
-        return "company updated";
+    public CompanyDto updateCompany(@RequestBody CompanyDto companyDto) {
+        companyService.updateCompany(companyDto);
+        log.info("company updated");
+        return companyDto;
     }
 }

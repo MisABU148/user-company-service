@@ -7,8 +7,6 @@ import com.example.user_company_service.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
 
 @Slf4j
@@ -24,8 +22,6 @@ public class UserService {
         userRepository.save(user);
     }
     public List<UserDto> getUsers() {
-        String testName=userRepository.findUserName();
-        System.out.println(testName);
         return userRepository.findAll().stream()
                 .map(user -> userMapping.mapToUserDto(user))
                 .toList();
@@ -36,18 +32,6 @@ public class UserService {
     }
 
     public void updateData(UserDto userDto) {
-        userRepository.findAll().stream()
-                .filter(user -> user.getFirstName().equals(userDto.getFirstName()))
-                .filter(user -> user.getLastName().equals(userDto.getLastName()))
-                .findFirst()
-                .ifPresentOrElse(
-                        company -> {
-                            company.setPhoneNumber(userDto.getPhoneNumber());
-                            userRepository.save(company);
-                        },
-                        () -> {
-                            log.info("error");
-                        }
-                );
+        userRepository.updateById(userDto);
     }
 }

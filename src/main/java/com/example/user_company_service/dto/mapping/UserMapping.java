@@ -6,18 +6,17 @@ import com.example.user_company_service.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserMapping {
     @Autowired
     private CompanyRepository repository;
     public UserDto mapToUserDto(User entity) {
         UserDto dto = new UserDto();
+        dto.setId(entity.getId());
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setPhoneNumber(entity.getPhoneNumber());
-//        dto.setCompany(entity.getCompany().getId());
+        dto.setCompanyId(entity.getCompany().getId());
         dto.setCompanyName(entity.getCompany().getCompany_name());
         return dto;
     }
@@ -26,10 +25,8 @@ public class UserMapping {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
-//        repository.findAll().stream()
-//                .filter(company -> company.getId().equals(dto.getCompany()))
-//                .findFirst()
-//                .ifPresent(entity::setCompany);
+        entity.setCompany(repository.findById(dto.getCompanyId())
+                .orElseThrow());
         return entity;
     }
 }
